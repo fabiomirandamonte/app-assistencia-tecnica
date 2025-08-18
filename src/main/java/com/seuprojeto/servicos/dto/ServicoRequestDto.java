@@ -8,6 +8,9 @@ import java.time.LocalDate;
 
 public record ServicoRequestDto(
         @NotBlank(message = "Tipo do serviço é obrigatório")
+        String tipo,  // <-- adicione esse campo
+
+        @NotBlank(message = "Descrição é obrigatória")
         String descricao,
 
         @NotNull(message = "Valor é obrigatório")
@@ -20,3 +23,4 @@ public record ServicoRequestDto(
         @NotNull(message = "ID do cliente é obrigatório")
         Long clienteId
 ) { }
+

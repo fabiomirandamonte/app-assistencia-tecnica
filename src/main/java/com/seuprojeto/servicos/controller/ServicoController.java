@@ -3,13 +3,16 @@ package com.seuprojeto.servicos.controller;
 import com.seuprojeto.servicos.dto.ClienteResponseDto;
 import com.seuprojeto.servicos.dto.ServicoRequestDto;
 import com.seuprojeto.servicos.dto.ServicoResponseDto;
+import com.seuprojeto.servicos.entity.Cliente;
 import com.seuprojeto.servicos.entity.Servico;
 import com.seuprojeto.servicos.repository.ClienteRepository;
 import com.seuprojeto.servicos.repository.ServicoRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -24,7 +27,7 @@ public class ServicoController {
     }
 
     @GetMapping
-    public List<Servico> listar() {
+    public List<ServicoResponseDto> listar() {
         return servicoRepository.findAll().stream()
                 .map(servico -> new ServicoResponseDto(
                         servico.getId(),
@@ -36,10 +39,9 @@ public class ServicoController {
                                 servico.getCliente().getId(),
                                 servico.getCliente().getNome(),
                                 servico.getCliente().getTelefone(),
-                                servico.getCliente().getTelefone(),
-                                servico.getCliente().getEndereco(),
+                                servico.getCliente().getEndereco()
                         )
-                )).List();
+                )).collect(Collectors.toList());
     }
 
     @PostMapping
@@ -48,7 +50,7 @@ public class ServicoController {
                 .orElse(null);
 
         if (cliente == null) {
-            return ResponseEntity.badRequest().body("Cliente não encontrado com ID " + dot.clienteId());
+            return ResponseEntity.badRequest().body("Cliente não encontrado com ID " + dto.clienteId());
         }
         Servico servico = new Servico();
         servico.setTipo(dto.tipo());
@@ -72,5 +74,4 @@ public class ServicoController {
                 )
         ));
     }
-
 }

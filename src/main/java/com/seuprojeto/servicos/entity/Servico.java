@@ -12,17 +12,12 @@ public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String tipo;
     private String descricao;
-    private double valor;
-    private LocalDate dat;
+    private Double valor;
+    private LocalDate data;
 
-    @ManyToMany
-    @JoinTable(
-            name = "servico_cliente",
-            joinColumns = @JoinColumn(name = "servico_id"),
-            inverseJoinColumns = @JoinColumn(name = "cliente_id")
-    )
-    private List<Cliente> clientes;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }

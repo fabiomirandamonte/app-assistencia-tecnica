@@ -15,7 +15,7 @@ public class Cliente {
     private String telefone;
     private String endereco;
 
-    @ManyToMany(mappedBy = "clientes")
+    @OneToMany (mappedBy = "cliente")
     private List<Servico> servicos;
 }
 
