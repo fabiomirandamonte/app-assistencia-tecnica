@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Entity
+@Table(name = "clientes")
 @Data
 public class Cliente {
     @Id
@@ -15,7 +16,7 @@ public class Cliente {
     private String telefone;
     private String endereco;
 
-    @OneToMany (mappedBy = "cliente")
+    @OneToMany (mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Servico> servicos;
 }
 

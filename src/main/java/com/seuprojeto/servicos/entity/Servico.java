@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Table(name = "servicos")
 @Data
 public class Servico {
     @Id
@@ -18,6 +19,6 @@ public class Servico {
     private LocalDate data;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = true)
     private Cliente cliente;
 }

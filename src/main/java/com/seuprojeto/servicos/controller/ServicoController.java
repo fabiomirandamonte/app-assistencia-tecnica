@@ -29,19 +29,28 @@ public class ServicoController {
     @GetMapping
     public List<ServicoResponseDto> listar() {
         return servicoRepository.findAll().stream()
-                .map(servico -> new ServicoResponseDto(
-                        servico.getId(),
-                        servico.getTipo(),
-                        servico.getDescricao(),
-                        servico.getValor(),
-                        servico.getData(),
-                        new ClienteResponseDto(
-                                servico.getCliente().getId(),
-                                servico.getCliente().getNome(),
-                                servico.getCliente().getTelefone(),
-                                servico.getCliente().getEndereco()
-                        )
-                )).collect(Collectors.toList());
+                .map(servico -> {
+                    Cliente cliente = servico.getCliente();
+                    ClienteResponseDto clienteDto = null;
+
+                    if (cliente != null) {
+                        clienteDto = new ClienteResponseDto(
+                                cliente.getId(),
+                                cliente.getNome(),
+                                cliente.getTelefone(),
+                                cliente.getEndereco()
+                        );
+                    }
+
+                    return new ServicoResponseDto(
+                            servico.getId(),
+                            servico.getTipo(),
+                            servico.getDescricao(),
+                            servico.getValor(),
+                            servico.getData(),
+                            clienteDto
+                    );
+                }).collect(Collectors.toList());
     }
 
     @PostMapping
