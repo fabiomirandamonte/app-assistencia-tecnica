@@ -33,21 +33,40 @@ src/main/java/com/seuprojeto/servicos
 ├── dto           # Objetos de transferência de dados (Request/Response)
 ├── entity        # Entidades do banco
 ├── repository    # Interfaces do Spring Data JPA
+├── service       # Regras de negócio e validações da aplicação.
 ├── exception     # Tratamento global de erros de validação
 
 📌 Funcionalidades
-**Cadastro de Clientes
+👤**Cadastro de Clientes
 - Nome, telefone, endereço
 - Validação de campos obrigatórios
-**Cadastro de Serviços**
+🧰**Cadastro de Serviços**
 - Tipo, descrição, valor, data
 - Relacionamento com cliente existente
 - Validação de campos obrigatórios
-**Listagem**
+📋**Listagem**
 - Listagem de clientes
 - Listagem de serviços com dados do cliente
-**Validações**
+⚙️**Camada Service**
+- Centralizar todas as regras de negócio
+- Controladores agora apenas delegam chamadas à camada Service
+- Código ficou mais limpo e coerente aos princípios de separação de responsabilidades (SoC)
+- Facilidade em relação aos testes unitários e possivéis manutenções
+❗**Validações e Erros**
 - Mensagens personalizadas para campos obrigatórios
 - Tratamento global de erros de validação
 **Documentação**
-- API documentada automaticamente com Swagger
+- API documentada automaticamente com Swagger / OpenAPI
+
+📅 21/10/2025 - Versão 1.1.0
+
+**Obs.: Projeto estava em standby por causa que estava estudando um pouco mais os fundamentos de Java, Spring Boot, Docker. Participando de cursos e dando continuidade a minha Pós em Engenharia de Software.**
+
+🔧 Refatoração Estrutural
+- Foi criado a camada de Service para isolar e gerenciar as regras de negócio
+- ServicoController foi atualizado para poder atualizar ServicoService, deixando o controller responsável apenas por requisiçoes HTTP.
+
+💡 Próximos Passos
+- Implementar autenticação e autorização com Spring Security + JWT
+- Criar a camada de testes unitários para Service e Controller
+- Adicionar endpoint de busca filtrada de serviços por cliente ou data
