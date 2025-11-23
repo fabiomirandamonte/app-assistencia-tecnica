@@ -14,11 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/servicos")
 public class ServicoController {
-    private final ServicoService ServicoService;
-    private ServicoService servicoService;
+    private final ServicoService servicoService;
 
     public ServicoController(ServicoService servicoService){
-        this.ServicoService = servicoService;
+        this.servicoService = servicoService;
     }
 
     @GetMapping
