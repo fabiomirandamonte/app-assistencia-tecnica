@@ -1,14 +1,21 @@
 # 📋 app-assistencia-tecnica
 # 📋 Sistema de Gerenciamento de Serviços
 
-Aplicação desenvolvida em **Java com Spring Boot** para auxiliar no gerenciamento de clientes e serviços prestados, como instalação e manutenção elétrica, instalação de ar-condicionado, portões automáticos e outros.
+API REST desenvolvida em Java com Spring Boot para gerenciamento de clientes e serviços técnicos, como:
+
+- Instalação e manutenção elétrica
+- Instalação de ar-condicionado
+- Portões automáticos
+- Outros serviços técnicos
+
+O projeto tem como objetivo consolidar fundamentos de Spring Boot, JPA, validações, arquitetura em camadas e boas práticas de backend.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
-
-- **Java 17+**
-- **Spring Boot**
+```bash
+- **Java 21**
+- **Spring Boot 3**
   - Spring Web (API REST)
   - Spring Data JPA (persistência)
   - Hibernate Validator (validação)
@@ -16,57 +23,137 @@ Aplicação desenvolvida em **Java com Spring Boot** para auxiliar no gerenciame
 - **Docker** (container do banco)
 - **Lombok** (redução de código boilerplate)
 - **Springdoc OpenAPI (Swagger)** (documentação da API)
+```
+---
+🏗️ **Arquitetura do Projeto**
+
+O projeto segue o padrão em camadas:
+
+```bash
+Controller → Service → Repository → Database
+```
+---
+## 📁 Estrutura de Pacotes
+
+```bash
+src/main/java/com/seuprojeto/servicos
+├── controller   # Controladores REST (camada HTTP)
+├── dto          # Objetos de transferência de dados (Request/Response)
+├── entity       # Entidades JPA
+├── repository   # Interfaces do Spring Data JPA
+├── service      # Regras de negócio
+└── exception    # Tratamento global de erros
+```
+---
+## 🎯 Decisões Arquiteturais
+
+✅ Camada Service
+
+Foi criada a camada ```Service``` para:
+- Centralizar as regras de negócio
+- Reduzir o acoplamento entre Controller e Repository
+- Melhorar a organização do código
+- Facilitar testes unitários futuros
+
+Os Controllers agora são responsáveis apenas por:
+- Receber requisições HTTP
+- Validade entrada com @Valid
+- Delegar chamadas para a camada Service
+
+Essa abordagem melhora a aderência ao princípio de **Separação de Responsabilidades (SoC).**
 
 ---
+✅ Uso de DTOs
+A aplicação utilizada DTOs para:
+- Controlar dados de entrada (Request)
+- Controlar dados de saída (Response)
+- Evitar exposição direta das entidade
+- Facilitar futuras evoluções do modelo
+---
+✅ Validações e Tratamento de Erros
+- Validação de campos obrigratórios com @NotBlank, @NotNull, @Positive
+- Mensagens personalizadas de erro
+- Tratamento global de exceções na camada ```exception```
+---
 
-## 🗄️ Configuração do Banco de Dados
+## 📌 Funcionalidades
 
-O banco de dados roda via Docker utilizando `docker-compose.yml`.
-
-### Subir o banco:
-```bash
-docker-compose up -d
-
-📂 **Estrutura do Projeto**
-src/main/java/com/seuprojeto/servicos
-├── controller    # Controladores REST
-├── dto           # Objetos de transferência de dados (Request/Response)
-├── entity        # Entidades do banco
-├── repository    # Interfaces do Spring Data JPA
-├── service       # Regras de negócio e validações da aplicação.
-├── exception     # Tratamento global de erros de validação
-
-📌 Funcionalidades
-👤**Cadastro de Clientes
-- Nome, telefone, endereço
+👤 Cadastro de Clientes
+- Nome
+- Telefone
+- Endereço
 - Validação de campos obrigatórios
-🧰**Cadastro de Serviços**
-- Tipo, descrição, valor, data
+
+
+  🧰 Cadastro de Serviços
+  
+- Tipo
+- Descrição
+- Valor
+- Data
 - Relacionamento com cliente existente
 - Validação de campos obrigatórios
-📋**Listagem**
+
+📋 Listagens
+
 - Listagem de clientes
-- Listagem de serviços com dados do cliente
-⚙️**Camada Service**
-- Centralizar todas as regras de negócio
-- Controladores agora apenas delegam chamadas à camada Service
-- Código ficou mais limpo e coerente aos princípios de separação de responsabilidades (SoC)
-- Facilidade em relação aos testes unitários e possivéis manutenções
-❗**Validações e Erros**
-- Mensagens personalizadas para campos obrigatórios
-- Tratamento global de erros de validação
-**Documentação**
-- API documentada automaticamente com Swagger / OpenAPI
+- Listagem de serviços com dados do cliente associado
+---
+## 🗄️ Configuração do Banco de Dados
 
-📅 21/10/2025 - Versão 1.1.0
+O banco de dados roda via Docker utilizando ```docker-compose.yml```.
 
-**Obs.: Projeto estava em standby por causa que estava estudando um pouco mais os fundamentos de Java, Spring Boot, Docker. Participando de cursos e dando continuidade a minha Pós em Engenharia de Software.**
+subir o banco:
 
-🔧 Refatoração Estrutural
-- Foi criado a camada de Service para isolar e gerenciar as regras de negócio
-- ServicoController foi atualizado para poder atualizar ServicoService, deixando o controller responsável apenas por requisiçoes HTTP.
+```bash
+  dicker-compose up -d
+```
+A aplicação está configurada para conectar ao PostgresSQL via ```application.properties```
 
-💡 Próximos Passos
-- Implementar autenticação e autorização com Spring Security + JWT
-- Criar a camada de testes unitários para Service e Controller
-- Adicionar endpoint de busca filtrada de serviços por cliente ou data
+---
+## 📖 Documentação da API
+Após iniciar a aplicação:
+
+```
+http://localhost:8081/swagger-ui.html
+```
+A documentação é gerada automaticamente via OpenAPI.
+
+---
+## 🔧 Refatoração Estrutural
+
+Foi realizada a refatoração para melhorar a consistência arquitetural do projeto:
+- Criação da camada ```Service``` para isolar as regras de negócio.
+- Atualização do ```ServicoController``` para delegar responsabilidades ao ```ServicoService```
+- Padronização do fluxo da aplicação:
+
+```bash
+Controller → Service → Repository
+```
+
+## 🎯 Motivação da Refatoração
+
+- Garantir consistência entre os módulos
+- Reduzir acoplamento
+- Melhorar manutenibilidade
+- Preparar o projeto para teste unitários e futuras evoluções
+- ---
+
+## 📅 Histórico de Versão
+
+📌 Versão 1.2.0 – 25/02/2026
+
+- Padronização completa da camada Service
+- Criação do ```ClienteService```
+- Refatoração do fluxo Controller → Service → Repository
+- Correção da injeção de dependência com ```Service```
+- Organização e padronização de pacotes
+- Melhoria na separação de responsabilidades (SoC)
+
+📌 Versão 1.1.0 – 21/10/2025
+
+- Implementação inicial de clientes e serviços
+- Estruturação do projeto
+- Integração com PostgreSQL
+- Documentação com Swagger
+

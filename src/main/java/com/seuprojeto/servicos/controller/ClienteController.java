@@ -2,9 +2,9 @@ package com.seuprojeto.servicos.controller;
 
 import com.seuprojeto.servicos.dto.ClienteRequestDto;
 import com.seuprojeto.servicos.dto.ClienteResponseDto;
-import com.seuprojeto.servicos.entity.Cliente;
-import com.seuprojeto.servicos.repository.ClienteRepository;
+import com.seuprojeto.servicos.servico.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,37 +12,20 @@ import java.util.List;
 @RequestMapping("/clientes")
 
 public class ClienteController {
-    private final ClienteRepository clienteRepository;
+    private final ClienteService clienteService;
 
-    public ClienteController(ClienteRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
 
     @GetMapping
     public List<ClienteResponseDto> listar() {
-        return clienteRepository.findAll().stream()
-                .map(cliente -> new ClienteResponseDto(
-                        cliente.getId(),
-                        cliente.getNome(),
-                        cliente.getTelefone(),
-                        cliente.getEndereco()
-                )).toList();
+        return clienteService.listar();
     }
 
     @PostMapping
-    public ClienteResponseDto criar(@RequestBody @Valid ClienteRequestDto dto) {
-        Cliente cliente = new Cliente();
-        cliente.setNome(dto.nome());
-        cliente.setTelefone(dto.telefone());
-        cliente.setEndereco(dto.endereco());
-
-        Cliente salvo = clienteRepository.save(cliente);
-
-        return new ClienteResponseDto(
-                salvo.getId(),
-                salvo.getNome(),
-                salvo.getTelefone(),
-                salvo.getEndereco()
-        );
+    public ResponseEntity<ClienteResponseDto> criar(
+            @RequestBody @Valid ClienteRequestDto dto){
+        return ResponseEntity.ok(clienteService.criar(dto));
     }
 }
