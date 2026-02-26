@@ -28,4 +28,17 @@ public class ClienteController {
             @RequestBody @Valid ClienteRequestDto dto){
         return ResponseEntity.ok(clienteService.criar(dto));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteResponseDto> atualizar(
+            @PathVariable Long id,
+            @RequestBody ClienteRequestDto dto) {
+                return ResponseEntity.ok(clienteService.atualizar(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        clienteService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
