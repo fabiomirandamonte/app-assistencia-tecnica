@@ -157,3 +157,13 @@ Controller → Service → Repository
 - Integração com PostgreSQL
 - Documentação com Swagger
 
+📌 Versão 1.2.0 - Evolução Arquitetural e Conclusão do CRUD
+
+- Nesta versão o projeto evoluiu para uma API REST completa, com implementação integral do CRUD da entidade Cliente.
+- Também forama aplicadas melhorias estruturais na camada do serviço, padronização do uso de DTOs com Java Record e organização da arquitetura em camadas seguindo boas práticas do Spring Boot.
+
+---
+
+
+
+s
