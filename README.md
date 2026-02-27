@@ -141,7 +141,7 @@ Controller → Service → Repository
 
 ## 📅 Histórico de Versão
 
-📌 Versão 1.2.0 – 25/02/2026
+📌 Versão 1.3.0 – 25/02/2026
 
 - Padronização completa da camada Service
 - Criação do ```ClienteService```
@@ -150,6 +150,11 @@ Controller → Service → Repository
 - Organização e padronização de pacotes
 - Melhoria na separação de responsabilidades (SoC)
 
+📌 Versão 1.2.0 - Evolução Arquitetural e Conclusão do CRUD
+
+- Nesta versão o projeto evoluiu para uma API REST completa, com implementação integral do CRUD da entidade Cliente.
+- Também forama aplicadas melhorias estruturais na camada do serviço, padronização do uso de DTOs com Java Record e organização da arquitetura em camadas seguindo boas práticas do Spring Boot.
+
 📌 Versão 1.1.0 – 21/10/2025
 
 - Implementação inicial de clientes e serviços
@@ -157,13 +162,4 @@ Controller → Service → Repository
 - Integração com PostgreSQL
 - Documentação com Swagger
 
-📌 Versão 1.2.0 - Evolução Arquitetural e Conclusão do CRUD
-
-- Nesta versão o projeto evoluiu para uma API REST completa, com implementação integral do CRUD da entidade Cliente.
-- Também forama aplicadas melhorias estruturais na camada do serviço, padronização do uso de DTOs com Java Record e organização da arquitetura em camadas seguindo boas práticas do Spring Boot.
-
 ---
-
-
-
-s
