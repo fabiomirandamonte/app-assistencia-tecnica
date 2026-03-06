@@ -77,4 +77,43 @@ public class ServicoService {
                 )
         );
     }
+
+    public ServicoResponseDto atualizarServico(Long id, ServicoRequestDto dto) {
+        Servico servicoExistente = servicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Serviço não encontrado."));
+
+        servicoExistente.setTipo(dto.tipo());
+        servicoExistente.setDescricao(dto.descricao());
+        servicoExistente.setValor(dto.valor());
+        servicoExistente.setData(dto.data());
+
+        Servico atualizado = servicoRepository.save(servicoExistente);
+        return toResponseDto(atualizado);
+    }
+
+    public void deletarServico(Long id) {
+        Servico service = servicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Serviço não encontrado."));
+
+        servicoRepository.delete(service);
+    }
+
+    private ServicoResponseDto toResponseDto(Servico servico) {
+        Cliente cliente = servico.getCliente();
+
+        ClienteResponseDto clienteDto = new ClienteResponseDto(
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getEndereco()
+        );
+        return new ServicoResponseDto(
+                servico.getId(),
+                servico.getTipo(),
+                servico.getDescricao(),
+                servico.getValor(),
+                servico.getData(),
+                clienteDto
+        );
+    }
 }
