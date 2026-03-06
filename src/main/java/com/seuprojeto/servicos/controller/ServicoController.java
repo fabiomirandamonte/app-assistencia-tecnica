@@ -33,4 +33,19 @@ public class ServicoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/{id}")
+    public ServicoResponseDto atualizar(
+            @PathVariable Long id,
+            @RequestBody ServicoRequestDto dto) {
+        return servicoService.atualizarServico(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarServico(
+            @PathVariable Long id) {
+        servicoService.deletarServico(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
