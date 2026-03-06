@@ -98,6 +98,21 @@ A aplicação utilizada DTOs para:
 
 - Listagem de clientes
 - Listagem de serviços com dados do cliente associado
+
+✏️ Atualização de Serviços
+
+- Atualização de serviços existentes via método HTTP PUT
+  - Tipo
+  - Descrição
+  - Valor
+  - Data
+- Validação existente do servicço antes da atualização
+
+🗑️ Remoção de Serviços
+
+- Exclusão de serviços via método HTTP DELETE
+- Remoção realizada a partir do ID do serviço
+- Validação de existência antes da exclusão
 ---
 ## 🗄️ Configuração do Banco de Dados
 
@@ -106,7 +121,7 @@ O banco de dados roda via Docker utilizando ```docker-compose.yml```.
 subir o banco:
 
 ```bash
-  dicker-compose up -d
+  docker-compose up -d
 ```
 A aplicação está configurada para conectar ao PostgresSQL via ```application.properties```
 
@@ -140,6 +155,14 @@ Controller → Service → Repository
 - ---
 
 ## 📅 Histórico de Versão
+
+📌 Versão 1.4.0 – 05/03/2026
+
+- Implementação do endpoint **PUT** para atualização de serviços
+- Implementação do endpoint **DELETE** para remoção de serviços
+- Criação da lógica de atualização na camada ```ServicoService```
+- Padronização da conversão da entidade para DTO utilizando método auxiliar
+- Melhoria na organização do fluxo da camada do serviço
 
 📌 Versão 1.3.0 – 25/02/2026
 
