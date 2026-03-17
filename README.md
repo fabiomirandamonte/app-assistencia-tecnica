@@ -23,6 +23,8 @@ O projeto tem como objetivo consolidar fundamentos de Spring Boot, JPA, validaç
 - **Docker** (container do banco)
 - **Lombok** (redução de código boilerplate)
 - **Springdoc OpenAPI (Swagger)** (documentação da API)
+- **Spring Security** (autenticação e autorização)
+- **JWT (JSON Wbe Token)** (Geração de token)
 ```
 ---
 🏗️ **Arquitetura do Projeto**
@@ -42,6 +44,7 @@ src/main/java/com/seuprojeto/servicos
 ├── entity       # Entidades JPA
 ├── repository   # Interfaces do Spring Data JPA
 ├── service      # Regras de negócio
+├── security     # Configurações de segurança, JWT e roles
 └── exception    # Tratamento global de erros
 ```
 ---
@@ -75,6 +78,35 @@ A aplicação utilizada DTOs para:
 - Mensagens personalizadas de erro
 - Tratamento global de exceções na camada ```exception```
 ---
+
+## 🔐 Autenticação e Segurança
+
+A aplicação agora conta com um sistema de autenticação baseada em **JWT (JSON Web Token)** utilizando **Spring Security**.
+
+### 📌 Funcionalidades de autenticação
+
+- Registro de usuários (`/auth/register`)
+- Login com geração de token (`/auth/login`
+- Criptografia de senha com **BCrypt**
+- Controle de acesso baseado em **roles (USER, ADMIN, TECNICO)**
+
+### 🔄 Fluxo de autenticação
+
+1. Usuário realiza o cadastro via `/auth/register`
+2. A senha é criptografada antes de ser salvo no banco
+3. Usuário realiza login via `/auth/login`
+4. O sistema valida as credenciais
+5. Um token JWT é gerado e retornado
+6. O token pode ser utilizado para acessar rotar protegidas
+
+### 🧩 Estrutura de roles
+
+- `USER`
+- `ADMIN`
+- `TECNICO`
+
+As roles são definidas utilizan Enum, garantindo maior segurança e padronização. 
+
 
 ## 📌 Funcionalidades
 
@@ -113,6 +145,13 @@ A aplicação utilizada DTOs para:
 - Exclusão de serviços via método HTTP DELETE
 - Remoção realizada a partir do ID do serviço
 - Validação de existência antes da exclusão
+
+🔐 Autenticação
+
+- Registro de usuários
+- Login com geração de token JWT
+- Criptografia de senha
+- Controle de acesso por roles
 ---
 ## 🗄️ Configuração do Banco de Dados
 
@@ -155,6 +194,15 @@ Controller → Service → Repository
 - ---
 
 ## 📅 Histórico de Versão
+
+📌 Versão 1.5.0 – 17/03/2026
+
+- Implementação de autenticação com JWT
+- Criação dos endpoints `/auth/register` e `/auth/login`
+- Criptografia de senha com BCrypt
+- Implementação de controle de acesso baseado em roles (Enum)
+- Configuração do Spring Security
+- Integração da autenticação com Swagger
 
 📌 Versão 1.4.0 – 05/03/2026
 
