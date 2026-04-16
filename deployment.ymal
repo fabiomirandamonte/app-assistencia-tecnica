@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assistenica-tecnica-deployment
+  labels:
+    app: assis-tec
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: assis-tec
+  template:
+    metadata:
+      labels:
+        app: assis-tec
+    spec:
+      containers:
+      - name: assis-tec
+        image: assis-tec:1.14.2
+        ports:
+        - containerPort: 80

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-assistenica-tecnica
+spec:
+  containers:
+  - name: app-assistenica-tecnica
+    image: app-assistenica-tecnica:1.14.2
+    ports:
+    - containerPort: 80
