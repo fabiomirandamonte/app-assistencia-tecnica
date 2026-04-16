@@ -2,8 +2,6 @@ package com.seuprojeto.servicos.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
