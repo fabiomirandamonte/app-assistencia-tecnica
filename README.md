@@ -24,7 +24,7 @@ O projeto tem como objetivo consolidar fundamentos de Spring Boot, JPA, validaç
 - **Lombok** (redução de código boilerplate)
 - **Springdoc OpenAPI (Swagger)** (documentação da API)
 - **Spring Security** (autenticação e autorização)
-- **JWT (JSON Wbe Token)** (Geração de token)
+- **JWT (JSON Web Token)** (Geração de token)
 ```
 ---
 🏗️ **Arquitetura do Projeto**
@@ -89,6 +89,8 @@ A aplicação agora conta com um sistema de autenticação baseada em **JWT (JSO
 - Login com geração de token (`/auth/login`
 - Criptografia de senha com **BCrypt**
 - Controle de acesso baseado em **roles (USER, ADMIN, TECNICO)**
+- Validação de requisições via **JWT**
+- Controle de acesso baseado em **roles (USER, ADMIN, TECNICO)**
 
 ### 🔄 Fluxo de autenticação
 
@@ -98,6 +100,10 @@ A aplicação agora conta com um sistema de autenticação baseada em **JWT (JSO
 4. O sistema valida as credenciais
 5. Um token JWT é gerado e retornado
 6. O token pode ser utilizado para acessar rotar protegidas
+7. Um filtro JWT intercepta as requisições e:
+    - Valida o token
+    - Extrai o usuário autenticado
+    - Libera o acesso aos endpoints protegidos
 
 ### 🧩 Estrutura de roles
 
@@ -194,6 +200,16 @@ Controller → Service → Repository
 - ---
 
 ## 📅 Histórico de Versão
+
+📌 Versão 1.6.0 - 16/04/2026
+
+- Implentação do filtro JWT para validação de tokens nas requisições
+- Extração e validação de dados do token via JwtService
+- Integração do filtro JWT ao fluxo do Spring Security
+- Configuração do Swagger para envio de token Bearer (Authorize)
+- Ajuste na autenticação para funcionamento correto do CRUD protegido
+- Padronização do uso de Authorization Header nas requisições1
+
 
 📌 Versão 1.5.0 – 17/03/2026
 
