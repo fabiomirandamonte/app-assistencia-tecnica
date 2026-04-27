@@ -7,8 +7,8 @@ import com.seuprojeto.servicos.entity.Cliente;
 import com.seuprojeto.servicos.entity.Servico;
 import com.seuprojeto.servicos.repository.ClienteRepository;
 import com.seuprojeto.servicos.repository.ServicoRepository;
+import com.seuprojeto.servicos.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,11 +48,7 @@ public class ServicoService {
 
     public ServicoResponseDto criarServico(ServicoRequestDto dto) {
         Cliente cliente = clienteRepository.findById(dto.clienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID " + dto.clienteId()));
-
-        if (dto.valor() <= 0) {
-            throw new IllegalArgumentException("Valor do serviço deve ser positivo");
-        }
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com ID " + dto.clienteId()));
 
         Servico servico = new Servico();
         servico.setTipo(dto.tipo());
@@ -80,7 +76,7 @@ public class ServicoService {
 
     public ServicoResponseDto atualizarServico(Long id, ServicoRequestDto dto) {
         Servico servicoExistente = servicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Serviço não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado." + id));
 
         servicoExistente.setTipo(dto.tipo());
         servicoExistente.setDescricao(dto.descricao());
@@ -93,7 +89,7 @@ public class ServicoService {
 
     public void deletarServico(Long id) {
         Servico service = servicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Serviço não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Serviço não encontrado."));
 
         servicoRepository.delete(service);
     }

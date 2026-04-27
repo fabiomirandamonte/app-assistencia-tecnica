@@ -3,6 +3,7 @@ package com.seuprojeto.servicos.servico;
 import com.seuprojeto.servicos.dto.ClienteRequestDto;
 import com.seuprojeto.servicos.dto.ClienteResponseDto;
 import com.seuprojeto.servicos.entity.Cliente;
+import com.seuprojeto.servicos.exception.ResourceNotFoundException;
 import com.seuprojeto.servicos.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class ClienteService {
 
     public ClienteResponseDto atualizar(Long id, ClienteRequestDto dto){
         Cliente clienteExistente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
 
         clienteExistente.setNome(dto.nome());
         clienteExistente.setTelefone(dto.telefone());
@@ -51,7 +52,7 @@ public class ClienteService {
 
     public void deletar(long id){
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado"));
 
         clienteRepository.delete(cliente);
     }
