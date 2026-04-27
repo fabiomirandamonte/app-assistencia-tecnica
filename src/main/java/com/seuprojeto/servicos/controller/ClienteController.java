@@ -4,10 +4,13 @@ import com.seuprojeto.servicos.dto.ClienteRequestDto;
 import com.seuprojeto.servicos.dto.ClienteResponseDto;
 import com.seuprojeto.servicos.servico.ClienteService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/clientes")
 
@@ -32,13 +35,14 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ResponseEntity<ClienteResponseDto> atualizar(
             @PathVariable Long id,
-            @RequestBody ClienteRequestDto dto) {
-                return ResponseEntity.ok(clienteService.atualizar(id, dto));
+            @RequestBody @Valid ClienteRequestDto dto) {
+                return ResponseEntity.ok(
+                    clienteService.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(
-            @PathVariable Long id){
+            @PathVariable @Positive (message= "Id inválido") Long id){
         clienteService.deletar(id);
         return ResponseEntity.noContent().build();
     }

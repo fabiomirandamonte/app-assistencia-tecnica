@@ -10,6 +10,7 @@ public record ServicoRequestDto(
         String tipo,
 
         @NotBlank(message = "Descrição é obrigatória")
+        @Size(min = 10, max = 500)
         String descricao,
 
         @NotNull(message = "Valor é obrigatório")
@@ -17,6 +18,7 @@ public record ServicoRequestDto(
         Double valor,
 
         @NotNull(message = "Data é obrigatória")
+        @FutureOrPresent(message = "Data não pode ser no passado.")
         LocalDate data,
 
         @NotNull(message = "ID do cliente é obrigatório")
