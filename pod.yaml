@@ -6,5 +6,6 @@ spec:
   containers:
   - name: app-assistenica-tecnica
     image: app-assistenica-tecnica:1.14.2
+    imagePullPolicy: Never
     ports:
     - containerPort: 80
