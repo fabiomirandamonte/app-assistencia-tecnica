@@ -1,69 +1,11 @@
-import Image from "next/image";
+import LeftPanel from "@/components/login/LeftPanel";
 import { Moon, Globe } from "lucide-react";
 
 export default function Home() {
   return (
     <main className="flex h-screen w-screen overflow-hidden">
-      {/* =========================
-          PAINEL ESQUERDO
-      ========================== */}
-      <section className="relative w-[55%]">
-        <Image
-          src="/images/fundo02.png"
-          alt="Background"
-          fill
-          priority
-          className="object-cover object-right"
-        />
-
-        <div className="absolute inset-0 bg-blue-950/70" />
-      </section>
-
-      {/* =========================
-          PAINEL DIREITO
-      ========================== */}
-      <section className="relative flex w-[45%] bg-white">
-
-        {/* Botões superiores */}
-        <div className="absolute right-12 top-10 flex gap-3">
-
-          <button
-            className="
-              flex
-              h-11
-              w-11
-              items-center
-              justify-center
-              rounded-xl
-              border
-              border-gray-300
-              transition
-              hover:bg-gray-100
-            "
-          >
-            <Moon size={18} />
-          </button>
-
-          <button
-            className="
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              border
-              border-gray-300
-              px-4
-              py-3
-              transition
-              hover:bg-gray-100
-            "
-          >
-            <Globe size={18} />
-            Português
-          </button>
-
-        </div>
-
+      <LeftPanel />
+      
         {/* Conteúdo */}
         <div className="flex w-full items-center justify-center px-20">
 
