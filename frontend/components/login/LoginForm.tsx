@@ -1,56 +1,34 @@
+"use client";
+
+import { Mail, Lock } from "lucide-react";
+
+import InputField from "./InputField";
 import LoginButton from "./LoginButton";
 
 export default function LoginForm() {
   return (
     <>
-      {/* Email */}
-      <div className="mt-10">
-        <label className="mb-2 block text-sm font-medium text-gray-700">
-          E-mail ou CPF
+      <InputField
+        label="E-mail ou CPF"
+        placeholder="Digite seu e-mail"
+        text-gray-600
+        icon={<Mail size={20} />}
+      />
+
+      <InputField
+        label="Senha"
+        placeholder="Digite sua senha"
+        type="password"
+        icon={<Lock size={20} />}
+      />
+
+      <div className="mt-5 flex items-center justify-between">
+        <label className="flex items-center gap-2 text-sm text-gray-600">
+          <input type="checkbox" />
+          Lembrar de mim
         </label>
 
-        <input
-          type="text"
-          placeholder="Digite seu e-mail"
-          className="
-            w-full
-            rounded-xl
-            border
-            border-gray-300
-            px-4
-            py-4
-            outline-none
-            transition
-            focus:border-blue-600
-          "
-        />
-      </div>
-
-      {/* Senha */}
-      <div className="mt-6">
-        <label className="mb-2 block text-sm font-medium text-gray-700">
-          Senha
-        </label>
-
-        <input
-          type="password"
-          placeholder="Digite sua senha"
-          className="
-            w-full
-            rounded-xl
-            border
-            border-gray-300
-            px-4
-            py-4
-            outline-none
-            transition
-            focus:border-blue-600
-          "
-        />
-      </div>
-
-      <div className="mt-3 flex justify-end">
-        <button className="text-sm text-blue-600 hover:underline">
+        <button className="text-sm font-medium text-blue-600 hover:underline">
           Esqueci minha senha
         </button>
       </div>

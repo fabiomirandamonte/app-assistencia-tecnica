@@ -1,4 +1,7 @@
 import LoginForm from "./LoginForm";
+import Divider from "./Divider";
+import SocialLogin from "./SocialLogin";
+import CreateAccount from "./CreateAccount";
 
 export default function LoginCard() {
   return (
@@ -13,6 +16,12 @@ export default function LoginCard() {
       </p>
 
       <LoginForm />
+
+      <Divider />
+
+      <SocialLogin />
+
+      <CreateAccount />
 
     </div>
   );
