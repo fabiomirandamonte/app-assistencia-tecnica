@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LeftHeader from "./LeftHeader";
 
 export default function LeftPanel(){
     return (
@@ -10,7 +11,9 @@ export default function LeftPanel(){
                 priority 
                 className="object-cover object-right"
             />
-            <div className="absolute inset-0 bg-blue-950/70" />
+            <div className="absolute inset-0 flex flex-col justify-between p-12">
+                <LeftHeader />
+            </div>
         </section>
     )
 }
