@@ -1,9 +1,9 @@
-import LeftPanel from "@/components/login/LeftPanel";
-import RightPanel from "@/components/login/RightPanel";
+import LeftPanel from "@/components/login/left-panel";
+import RightPanel from "@/components/login/right-panel";
 
 export default function Home() {
   return (
-    <main className="flex h-screen w-screen overflow-hidden">
+    <main className="flex h-screen">
       <LeftPanel />
       <RightPanel />
     </main>

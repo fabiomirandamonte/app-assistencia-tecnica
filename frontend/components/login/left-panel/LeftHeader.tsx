@@ -39,7 +39,7 @@ export default function LeftHeader() {
       
       <div
         className="
-          mt-10
+          mt-4
           inline-flex
           rounded-full
           bg-blue-600/20

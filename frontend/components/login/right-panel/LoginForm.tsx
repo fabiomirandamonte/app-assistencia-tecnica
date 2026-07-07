@@ -11,7 +11,6 @@ export default function LoginForm() {
       <InputField
         label="E-mail ou CPF"
         placeholder="Digite seu e-mail"
-        text-gray-600
         icon={<Mail size={20} />}
       />
 

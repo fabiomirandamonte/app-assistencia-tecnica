@@ -26,7 +26,7 @@ export default function InputField({
                 {label}
             </label>
 
-            <div className="flex items-center rounded-x1 border border-gray-300 px-4 py-4  transition focus-within:border-blue-600">
+            <div className="flex items-center rounded-xl border border-gray-300 px-4 py-4  transition focus-within:border-blue-600">
                 <span className="mr-3 text-gray-400">{icon}</span>
 
                 <input 
