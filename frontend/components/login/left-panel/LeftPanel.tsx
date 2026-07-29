@@ -2,6 +2,9 @@ import Image from "next/image";
 import LeftHeader from "./LeftHeader";
 import HeroSection from "./HeroSection";
 import FeatureList from "./FeatureList";
+import StatsItem from "./StatsItem";
+import Footer from "./Footer";
+import StatsSection from "./StatsSection";
 
 export default function LeftPanel() {
   return (
@@ -21,7 +24,10 @@ export default function LeftPanel() {
             <LeftHeader />
             <HeroSection />
             <FeatureList />
+            <StatsSection />
         </div>
+
+        <Footer />
       </div>
     </section>
   );
