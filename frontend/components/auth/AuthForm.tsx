@@ -2,43 +2,60 @@
 
 import { useState } from "react";
 import { Mail, Lock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import AuthInput from "./AuthInput";
 import AuthCheckbox from "./AuthCheckbox";
 import AuthButton from "./AuthButton";
 import FormError from "./FormError";
 
+import { useLogin } from "@/src/hooks/useLogin";
+import {
+  loginSchema,
+  type LoginFormData,
+} from "@/src/schemas/login.schema";
+
 export default function AuthForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  // Estados locais
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const [loading] = useState(false);
-  const [error] = useState("");
+  // Hook responsável pelo login
+  const { login, loading, error } = useLogin();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  // React Hook Form + Zod
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
 
-    console.log({
-      email,
-      password,
-      rememberMe,
+  // Envio do formulário
+  async function onSubmit(data: LoginFormData) {
+    await login({
+      email: data.email,
+      password: data.password,
     });
 
-    // Aqui futuramente será feita a chamada da API
+    console.log("Lembrar de mim:", rememberMe);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6"
+      noValidate
+    >
       <AuthInput
         label="E-mail ou CPF"
         type="email"
         placeholder="Digite seu e-mail"
         icon={<Mail size={20} />}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        error={errors.email?.message}
+        {...register("email")}
       />
 
       <AuthInput
@@ -46,16 +63,15 @@ export default function AuthForm() {
         type={showPassword ? "text" : "password"}
         placeholder="Digite sua senha"
         icon={<Lock size={20} />}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        error={errors.password?.message}
         showPassword={showPassword}
         onTogglePassword={() =>
-          setShowPassword(!showPassword)
+          setShowPassword((current) => !current)
         }
+        {...register("password")}
       />
 
       <div className="flex items-center justify-between">
-
         <AuthCheckbox
           id="remember"
           label="Lembrar de mim"
@@ -69,7 +85,6 @@ export default function AuthForm() {
         >
           Esqueci minha senha
         </button>
-
       </div>
 
       <FormError message={error} />
@@ -77,7 +92,6 @@ export default function AuthForm() {
       <AuthButton loading={loading}>
         Entrar
       </AuthButton>
-
     </form>
   );
 }
